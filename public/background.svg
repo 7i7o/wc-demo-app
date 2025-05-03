@@ -1,0 +1,86 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#cl1)">
+<rect width="1024" height="1024" fill="white"/>
+<!-- Row 1: 1 -->
+<rect x="1" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="1" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 2: 129 -->
+<rect x="129" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="129" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 3: 257 -->
+<rect x="257" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="257" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 4: 385 -->
+<rect x="385" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="385" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 5: 513 -->
+<rect x="513" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="513" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 6: 641 -->
+<rect x="641" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="641" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 7: 769 -->
+<rect x="769" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="769" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<!-- Row 8: 897 -->
+<rect x="897" y="1" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="129" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="257" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="385" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="513" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="641" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="769" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+<rect x="897" y="897" width="126" height="126" rx="36" ry="36" fill="url(#gr1)" />
+</g>
+<defs>
+<radialGradient id="gr1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 512) scale(688.5)">
+<stop offset="0.25" stop-color="#C7DDF9"/>
+<stop offset="1" stop-color="#FFFCFE"/>
+</radialGradient>
+<clipPath id="cl1">
+<rect width="1024" height="1024" fill="white"/>
+</clipPath>
+</defs>
+</svg>
