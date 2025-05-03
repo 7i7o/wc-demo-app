@@ -13,14 +13,28 @@ export default function UploadFileCard() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [txResult, setTxResult] = useState(emptyTxResult);
     const [loading, setLoading] = useState(false);
+    const [modified, setModified] = useState(false);
+
+    const clearFields = () => {
+        setFile(null);
+        setTxResult(emptyTxResult);
+        setLoading(false);
+        setModified(false);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
 
     useEffect(() => {
         if (connected) return;
 
-        setFile(null);
-        setTxResult(emptyTxResult);
-        setLoading(false);
+        clearFields;
     }, [connected]);
+
+    useEffect(() => {
+        if (!modified && (file !== null || txResult !== emptyTxResult))
+            setModified(true);
+    }, [file, txResult]);
 
     const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
         setFile(
@@ -70,7 +84,10 @@ export default function UploadFileCard() {
 
     return (
         <Card>
-            <p>{'Upload a File to Arweave (<100kb)'}</p>
+            <div className="flex w-full items-start justify-between">
+                {'Upload a File to Arweave (<100kb)'}
+                {modified && <button onClick={clearFields}>🗑️</button>}
+            </div>
             <div className="flex flex-col gap-2">
                 <input
                     className="mt-2"
