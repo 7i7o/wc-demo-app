@@ -122,7 +122,14 @@ export default function SendAOTokenCard() {
                 {modified && <button onClick={clearFields}>🗑️</button>}
             </div>
             <div className="flex flex-col gap-2">
-                {/* <span className="w-28">Message:</span> */}
+                {process && (
+                    <AOTokenInfo
+                        process={process}
+                        setDenomination={setDenomination}
+                        setLoading={setLoading}
+                    />
+                )}
+                Token ID:
                 <Input
                     type="text"
                     placeholder="AO Token Address"
@@ -131,13 +138,6 @@ export default function SendAOTokenCard() {
                     className="w-full"
                     disabled={loading}
                 />
-                {process && (
-                    <AOTokenInfo
-                        process={process}
-                        setDenomination={setDenomination}
-                        setLoading={setLoading}
-                    />
-                )}
                 Amount:
                 <Input
                     type="number"
