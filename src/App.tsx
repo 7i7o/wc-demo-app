@@ -1,6 +1,6 @@
 import { ArweaveProvider } from './hooks/ArweaveContext';
 import { WanderProvider } from './hooks/WanderContext';
-import Layout from './Layout';
+import Layout from './layout/Layout';
 
 function App() {
     return (
@@ -8,8 +8,8 @@ function App() {
             <WanderProvider
                 options={{
                     iframeMode: 'sidebar',
-                    baseURL:
-                        'https://wander-embed-dev-git-fix-arc-1209-impleme-a19d10-community-labs.vercel.app',
+                    // baseURL:
+                    //     'https://wander-embed-dev-git-fix-arc-1209-impleme-a19d10-community-labs.vercel.app',
                 }}
             >
                 <Layout />

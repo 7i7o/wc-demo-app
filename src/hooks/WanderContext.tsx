@@ -1,6 +1,10 @@
 import { type ReactNode, useCallback, useEffect, useState } from 'react';
 import { WanderContext } from './useWander';
-import { type BalanceInfo, WanderEmbedded } from '@wanderapp/embed-sdk';
+import {
+    AuthState,
+    type BalanceInfo,
+    WanderEmbedded,
+} from '@wanderapp/embed-sdk';
 
 const THEME = 'light';
 // const IFRAME_MODE = 'modal';
@@ -28,10 +32,15 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
     const [walletInitialized, setWalletInitialized] = useState(false);
     const [connected, setConnected] = useState(false);
     const [permissions, setPermissions] = useState<string[]>([]);
+    const [connectAuthState, setConnectAuthState] = useState<AuthState | null>(
+        null
+    );
 
-    const handleOnAuth = useCallback((..._args: any) => {
+    const handleOnAuth = useCallback((authState: AuthState) => {
         setWallet(window.arweaveWallet);
-        setAuthenticated(true);
+        setAuthenticated(authState.authStatus === 'authenticated');
+        setConnectAuthState(authState);
+        console.log('[WC] Connection Status:', authState);
     }, []);
 
     useEffect(() => {
@@ -126,6 +135,7 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
                 wallet,
                 connect,
                 disconnect,
+                connectAuthState
             }}
         >
             {children}

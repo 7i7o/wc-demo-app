@@ -1,4 +1,4 @@
-import { WanderEmbedded } from '@wanderapp/embed-sdk';
+import { AuthState, WanderEmbedded } from '@wanderapp/embed-sdk';
 import { createContext, useContext } from 'react';
 
 export interface WanderContextType {
@@ -10,6 +10,7 @@ export interface WanderContextType {
     wallet?: typeof window.arweaveWallet;
     connect: () => void;
     disconnect: () => void;
+    connectAuthState: AuthState | null;
 }
 
 export const WanderContext = createContext<WanderContextType | undefined>(
