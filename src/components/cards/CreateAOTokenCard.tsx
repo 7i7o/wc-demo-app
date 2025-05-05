@@ -4,24 +4,22 @@ import { Button } from '../Button';
 import Card from '../Card';
 import { Input } from '../Input';
 import { useArweave } from '../../hooks/useArweave';
-import {
-    createMessage,
-    getTokenAmount,
-    isValidAddress,
-    tag,
-} from '../../utils/arweaveUtils';
 import { emptyTxResult, TxResult } from './TxResult';
-import { AOTokenInfo } from '../AOTokenInfo';
-import { createDataItemSigner } from '@permaweb/aoconnect';
 import Transaction from 'arweave/node/lib/transaction';
+// import {
+//     createMessage,
+//     getTokenAmount,
+//     isValidAddress,
+//     tag,
+// } from '../../utils/arweaveUtils';
+// import { AOTokenInfo } from '../AOTokenInfo';
+// import { createDataItemSigner } from '@permaweb/aoconnect';
 
 const DEFAULT_NAME = 'WC Test Token';
 const DEFAULT_TICKER = 'WCTT';
 const DEFAULT_LOGO = 'W3i_rxUIaEBH-HmPN_FGvaEL17D0lXsK4tVkMDDefyE';
 const DEFAULT_DENOMINATION = 12;
 const DEFAULT_TOTAL_SUPPLY = 21_000_000;
-
-const acceptedFileTypes = [];
 
 export default function CreateAOTokenCard() {
     const { connected, wallet } = useWander();
@@ -159,7 +157,6 @@ export default function CreateAOTokenCard() {
         if (!wallet || !connected || !ao) return;
         // try uploading the logo
 
-        let amount = '';
         if (!validateInputs()) return;
         setLoading(true);
         alert(

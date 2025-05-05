@@ -4,7 +4,7 @@ import ConnectCard from '../components/cards/ConnectCard';
 import SignMessageCard from '../components/cards/SignMessageCard';
 import UploadFileCard from '../components/cards/UploadFileCard';
 import SendAOTokenCard from '../components/cards/SendAOTokenCard';
-import CreateAOTokenCard from '../components/cards/CreateAOTokenCard';
+// import CreateAOTokenCard from '../components/cards/CreateAOTokenCard';
 
 export default function Layout() {
     //   const encryptAndDecrypt = async () => {
