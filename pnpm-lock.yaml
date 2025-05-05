@@ -564,7 +564,7 @@ packages:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0
 
   '@wanderapp/embed-sdk@file:wanderapp-embed-sdk-0.0.6.tgz':
-    resolution: {integrity: sha512-NvF6ZnNuUjG70tPq+kCw3TF+EC5vRCm9Z2b8ErI3/yX8kSQqSuyjXTfTiBFP3RKhZHdzBAB3jHKOrttWuvm/Sg==, tarball: file:wanderapp-embed-sdk-0.0.6.tgz}
+    resolution: {integrity: sha512-coBSZN5foZDStFit3K0vULGWjtaFc2BUQOdXw0HDE1OXiW08/+9L7LRki9RCRvXAtH7vVqloQG8kski0S/EBSw==, tarball: file:wanderapp-embed-sdk-0.0.6.tgz}
     version: 0.0.6
 
   acorn-jsx@5.3.2:
