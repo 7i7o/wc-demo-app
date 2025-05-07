@@ -7,21 +7,21 @@ export default function UserInfo() {
     if (!connectAuthState) return <></>;
 
     return (
-        <div className="absolute left-1/2 my-1.5 flex min-h-14 max-w-fit -translate-x-1/2 flex-row items-center justify-start rounded-lg border bg-white px-2 py-1.5 shadow-md">
+        <div className="absolute left-1/2 my-1.5 flex min-h-14 max-w-fit -translate-x-1/2 flex-row items-center justify-start rounded-lg border bg-white px-2 py-1.5 shadow-md max-[680px]:hidden">
             {connectAuthState.authStatus === 'authenticated' &&
             connectAuthState.userDetails ? (
                 connectAuthState.userDetails?.picture && (
                     <img
-                        className="mr-2 h-14 w-14 rounded-lg"
+                        className="h-14 w-14 rounded-lg"
                         src={connectAuthState.userDetails?.picture}
                         alt="avatar"
                     />
                 )
             ) : (
-                <div className="mr-2 h-14">&nbsp;</div>
+                <div className="h-14">&nbsp;</div>
             )}
 
-            <div className="flex max-w-fit flex-col items-start justify-center text-[0.625rem] font-light text-gray-900 dark:text-white">
+            <div className="ml-2 flex max-w-fit flex-col items-start justify-center text-[0.625rem] font-light text-gray-900 dark:text-white max-[850px]:hidden">
                 <div>
                     Status: {connectAuthState.authStatus} (
                     {connectAuthState.authType})
