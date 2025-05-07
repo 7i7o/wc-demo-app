@@ -4,7 +4,7 @@ import ConnectCard from '../components/cards/ConnectCard';
 import SignMessageCard from '../components/cards/SignMessageCard';
 import UploadFileCard from '../components/cards/UploadFileCard';
 import SendAOTokenCard from '../components/cards/SendAOTokenCard';
-// import CreateAOTokenCard from '../components/cards/CreateAOTokenCard';
+import CreateAOTokenCard from '../components/cards/CreateAOTokenCard';
 
 export default function Layout() {
     //   const encryptAndDecrypt = async () => {
@@ -31,16 +31,16 @@ export default function Layout() {
     };
 
     return (
-        <div className="flex min-h-screen w-full flex-col" style={bgImgStyle}>
+        <div className="flex min-h-screen flex-col" style={bgImgStyle}>
             <Header />
             {/* <div className="mt-20 flex flex-col flex-wrap space-y-4 p-4 sm:space-y-8 sm:p-8"> */}
-            <div className="mt-20 flex max-h-screen flex-col flex-wrap gap-4 overflow-hidden p-4 sm:gap-6 sm:p-8">
-                <OpenCard />
+            <div className="mt-20 flex max-h-screen w-fit flex-col flex-wrap gap-4 overflow-hidden p-4 sm:gap-6 sm:p-8">
+                {/* <OpenCard /> */}
                 <ConnectCard />
-                <SignMessageCard />
                 <UploadFileCard />
                 <SendAOTokenCard />
-                {/* <CreateAOTokenCard /> */}
+                <SignMessageCard />
+                <CreateAOTokenCard />
             </div>
         </div>
     );

@@ -11,6 +11,10 @@ const THEME = 'light';
 const BASE_URL = 'https://embed-dev.wander.app';
 const BASE_SERVER_URL = 'https://embed-api-dev.wander.app';
 
+export const APP_NAME = 'Wander Connect Demo';
+// const APP_LOGO =
+//     'https://arwewave.net/ju9jH0ppDyeOvyUNsW4RvPPAo67TYCO5rCpaKE3vcFQ';
+
 export type WanderOptions = {
     theme?: 'light' | 'dark' | 'system';
     iframeMode?: 'modal' | 'popup' | 'sidebar' | 'half';
@@ -60,6 +64,8 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
 
         const wanderInstance = new WanderEmbedded({
             clientId: 'ALPHA',
+            // clientId: 'FREE_TRIAL',
+
             // iframe: {
             //     routeLayout: {
             //         auth: options?.iframeMode || IFRAME_MODE,
@@ -73,6 +79,7 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
                 position: 'top-right',
                 theme: options?.theme || THEME,
             },
+
             baseURL: options?.baseURL || BASE_URL,
             baseServerURL: options?.baseServerURL || BASE_SERVER_URL,
             onAuth: handleOnAuth,
@@ -109,17 +116,23 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
 
     function connect() {
         window.arweaveWallet
-            .connect([
-                'ACCESS_ADDRESS',
-                'ACCESS_PUBLIC_KEY',
-                'ACCESS_ALL_ADDRESSES',
-                'SIGN_TRANSACTION',
-                'ENCRYPT',
-                'DECRYPT',
-                'SIGNATURE',
-                'DISPATCH',
-                // 'ACCESS_TOKENS',
-            ])
+            .connect(
+                [
+                    'ACCESS_ADDRESS',
+                    'ACCESS_PUBLIC_KEY',
+                    'ACCESS_ALL_ADDRESSES',
+                    'SIGN_TRANSACTION',
+                    'ENCRYPT',
+                    'DECRYPT',
+                    'SIGNATURE',
+                    'DISPATCH',
+                    // 'ACCESS_TOKENS',
+                ],
+                {
+                    name: APP_NAME,
+                    // , logo: APP_LOGO
+                }
+            )
             .then(() => setConnected(true))
             .catch(() => setConnected(false));
     }
@@ -135,7 +148,7 @@ export const WanderProvider = ({ children, options }: WanderProviderProps) => {
                 wallet,
                 connect,
                 disconnect,
-                connectAuthState
+                connectAuthState,
             }}
         >
             {children}

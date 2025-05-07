@@ -10,27 +10,35 @@ export const ArweaveProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const arweave = useMemo(() => Arweave.init(DEFAULT_GATEWAY), []);
     const ao = useMemo(() => {
-        let message, dryrun, result;
+        let message, dryrun, result, spawn, createDataItemSigner;
         if (CU_URL) {
             const {
                 message: m,
                 dryrun: d,
                 result: r,
+                spawn: s,
+                createDataItemSigner: c,
             } = connect({ MODE: 'legacy', CU_URL });
             message = m;
             dryrun = d;
             result = r;
+            spawn = s;
+            createDataItemSigner = c;
         } else {
             const {
                 message: m,
                 dryrun: d,
                 result: r,
+                spawn: s,
+                createDataItemSigner: c,
             } = connect({ MODE: 'legacy' });
             message = m;
             dryrun = d;
             result = r;
+            spawn = s;
+            createDataItemSigner = c;
         }
-        return { message, dryrun, result };
+        return { message, dryrun, result, spawn, createDataItemSigner };
     }, []);
 
     return (

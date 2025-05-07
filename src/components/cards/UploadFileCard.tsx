@@ -73,6 +73,7 @@ export default function UploadFileCard() {
                 txId: postResult.id,
                 status: `200`,
                 statusMsg: `ok`,
+                variant: 'mini',
             });
             console.log(' | Signed Tx: ', signedTx);
             console.log(' | Post Result: ', postResult);

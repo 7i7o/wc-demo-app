@@ -8,6 +8,8 @@ export interface ArweaveContextType {
         message: any;
         dryrun: any;
         result: any;
+        spawn: any;
+        createDataItemSigner: any;
     };
 }
 
@@ -27,13 +29,14 @@ export const useArweave = (options?: ArweaveOptions) => {
 
     // If options.cuUrl is provided, create a new AO instance with the custom CU_URL
     if (options?.cuUrl && context.ao) {
-        const { message, dryrun, result } = connect({
-            MODE: 'legacy',
-            CU_URL: options.cuUrl,
-        });
+        const { message, dryrun, result, spawn, createDataItemSigner } =
+            connect({
+                MODE: 'legacy',
+                CU_URL: options.cuUrl,
+            });
         return {
             ...context,
-            ao: { message, dryrun, result },
+            ao: { message, dryrun, result, spawn, createDataItemSigner },
         };
     }
 

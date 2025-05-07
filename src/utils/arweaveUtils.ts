@@ -55,3 +55,62 @@ export function getTokenAmount(input: number | string, denomination: number) {
     const bigIntValue = convertToBigIntAmount(input, denomination);
     return bigIntValue.toString();
 }
+
+export const truncateString = (
+    str: string,
+    charsToShow: number = 4
+): string => {
+    if (!str) return '';
+    if (str.length <= charsToShow * 2 + 3) return str;
+
+    const start = str.substring(0, charsToShow);
+    const end = str.substring(str.length - charsToShow);
+
+    return `${start}...${end}`;
+};
+
+export const defaultAODetails = {
+    module: 'cNlipBptaF9JeFAf4wUmpi43EojNanIBos3EfNrEOWo',
+    sqliteModule: 'u1Ju_X8jiuq4rX9Nh-ZGRQuYQZgV2MKLMT3CZsykk54',
+    scheduler: '_GQ33BkPtZrqxA84vM8Zk-N2aO0toNNu_C-l-rawrBA',
+    authority: 'fcoN_xJeisVsPXA-trzVAuIiqO3ydLQxM-L4XbrQKzY',
+};
+
+export const wait = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Retries a given function up to a maximum number of attempts.
+ * @param fn - The asynchronous function to retry, which should return a Promise.
+ * @param maxAttempts - The maximum number of attempts to make.
+ * @param initialDelay - The delay between attempts in milliseconds.
+ * @param getDelay - A function that returns the delay for a given attempt.
+ * @return A Promise that resolves with the result of the function or rejects after all attempts fail.
+ */
+export async function retryWithDelay<T>(
+    fn: () => Promise<T>,
+    maxAttempts: number = 3,
+    initialDelay: number = 3000,
+    getDelay: (attempt: number) => number = () => initialDelay
+): Promise<T> {
+    let attempts = 0;
+
+    const attempt = async (): Promise<T> => {
+        try {
+            return await fn();
+        } catch (error) {
+            attempts += 1;
+            if (attempts < maxAttempts) {
+                const currentDelay = getDelay(attempts);
+                // console.log(`Attempt ${attempts} failed, retrying...`)
+                return new Promise<T>((resolve) =>
+                    setTimeout(() => resolve(attempt()), currentDelay)
+                );
+            } else {
+                throw error;
+            }
+        }
+    };
+
+    return attempt();
+}

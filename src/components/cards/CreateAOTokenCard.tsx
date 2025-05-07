@@ -6,6 +6,19 @@ import { Input } from '../Input';
 import { useArweave } from '../../hooks/useArweave';
 import { emptyTxResult, TxResult } from './TxResult';
 import Transaction from 'arweave/node/lib/transaction';
+import {
+    createMessage,
+    defaultAODetails,
+    getTokenAmount,
+    retryWithDelay,
+    tag,
+    wait,
+} from '../../utils/arweaveUtils';
+import { APP_NAME } from '../../hooks/WanderContext';
+import contractSrc from '../../lua/token.lua?raw';
+import preContractSrc from '../../lua/pre-token.lua?raw';
+import postContractSrc from '../../lua/post-token.lua?raw';
+
 // import {
 //     createMessage,
 //     getTokenAmount,
@@ -17,7 +30,8 @@ import Transaction from 'arweave/node/lib/transaction';
 
 const DEFAULT_NAME = 'WC Test Token';
 const DEFAULT_TICKER = 'WCTT';
-const DEFAULT_LOGO = 'W3i_rxUIaEBH-HmPN_FGvaEL17D0lXsK4tVkMDDefyE';
+// const DEFAULT_LOGO = 'W3i_rxUIaEBH-HmPN_FGvaEL17D0lXsK4tVkMDDefyE';
+const DEFAULT_LOGO = '_t6kBLj-1kapdStxIODsllvvFmuLflVqNEA-jkgcQ4k';
 const DEFAULT_DENOMINATION = 12;
 const DEFAULT_TOTAL_SUPPLY = 21_000_000;
 
@@ -40,6 +54,7 @@ export default function CreateAOTokenCard() {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [txResult, setTxResult] = useState(emptyTxResult);
+    const [aoTxResult, setAoTxResult] = useState(emptyTxResult);
 
     const clearFields = () => {
         setTokenName(DEFAULT_NAME);
@@ -77,6 +92,7 @@ export default function CreateAOTokenCard() {
     }, [tokenName, tokenTicker, tokenLogoTxId, tokenDenomination, totalSupply]);
 
     const validateInputs = () => {
+        console.log(tokenName, tokenTicker, tokenDenomination, totalSupply);
         if (!tokenName || !tokenTicker || !totalSupply) return false;
         if (tokenDenomination < 0) {
             console.error(`Token Denomination should be > 0`);
@@ -86,7 +102,7 @@ export default function CreateAOTokenCard() {
             console.error(`Total Supply should be > 1 and < 1,000,000,000`);
             return false;
         }
-        return false;
+        return true;
     };
 
     const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
@@ -153,35 +169,113 @@ export default function CreateAOTokenCard() {
         }
     }, [txResult]);
 
+    const calculateTotalSupply = () => {
+        let sanitizedQuantity = '';
+        sanitizedQuantity = `${totalSupply}`.replace(/,|\s/g, '');
+        if (sanitizedQuantity.startsWith('.')) {
+            sanitizedQuantity = '0' + sanitizedQuantity;
+        }
+        const tokenAmount = getTokenAmount(
+            sanitizedQuantity,
+            tokenDenomination
+        );
+        if (!tokenAmount || tokenAmount == '0') {
+            console.error(`Not a valid total supply`);
+            return '';
+        }
+        return tokenAmount;
+    };
+
     const createAOToken = async () => {
         if (!wallet || !connected || !ao) return;
-        // try uploading the logo
-
         if (!validateInputs()) return;
+        const trueSupply = calculateTotalSupply();
         setLoading(true);
-        alert(
-            `Trying to deploy token: ${tokenName} (${tokenTicker}) ${file} ${tokenDenomination} ${totalSupply}`
+        window.alert(
+            `Trying to deploy token: ${tokenName} (${tokenTicker}) ${tokenLogoTxId} ${tokenDenomination} ${totalSupply}`
         );
-        // try {
-        //     const msgId = await ao?.message({
-        //         ...createMessage(process, [
-        //             tag('Action', 'Transfer'),
-        //             tag('Quantity', amount),
-        //             tag('Recipient', target),
-        //         ]),
-        //         signer: createDataItemSigner(window.arweaveWallet),
-        //     });
-        //     console.log(' | Sent Mesage Id: ', msgId);
-        //     setTxResult({
-        //         txId: msgId,
-        //         status: `200`,
-        //         statusMsg: `OK`,
-        //     });
-        // } catch (err) {
-        //     console.error(err);
-        // } finally {
-        //     setLoading(false);
-        // }
+
+        try {
+            const tags = [
+                tag('App-Name', APP_NAME),
+                tag('Name', tokenName),
+                tag('Authority', defaultAODetails.authority),
+                // tag('On-Boot', 'Data'),
+            ];
+
+            const processId = await retryWithDelay(
+                () =>
+                    ao.spawn({
+                        module: defaultAODetails.module,
+                        scheduler: defaultAODetails.scheduler,
+                        signer: ao.createDataItemSigner(wallet),
+                        tags,
+                        data: '1984',
+                    }),
+                5,
+                3000
+            );
+
+            if (!processId) throw 'Something went wrong, please try again';
+
+            console.log(' | Spawned Process Id: ', processId);
+
+            console.log('Waiting 3s to run eval with the contract source');
+            await wait(3000);
+
+            const pre = preContractSrc
+                .replace('__TOKEN_NAME__', tokenName)
+                .replace('__TOKEN_TICKER__', tokenTicker)
+                .replace('__TOKEN_LOGO__', tokenLogoTxId)
+                .replace('__TOKEN_DENOMINATION__', `${tokenDenomination}`)
+                .replace('__TOTAL_SUPPLY__', trueSupply)
+                .replace('__TOTAL_SUPPLY__', trueSupply);
+            const finalContractSrc = [pre, contractSrc, postContractSrc]
+                .filter(Boolean)
+                .join('\n\n')
+                .trim();
+            console.log(finalContractSrc);
+
+            const evalMsgId = await retryWithDelay(
+                async () =>
+                    ao.message({
+                        process: processId!,
+                        tags: [tag('Action', 'Eval')],
+                        data: finalContractSrc,
+                        signer: ao.createDataItemSigner(wallet),
+                    }),
+                5,
+                3000
+            );
+            console.log(' | Sent Eval Mesage Id: ', evalMsgId);
+
+            console.log('Waiting 3s to run rugpull');
+            await wait(3000);
+
+            const msgId = await retryWithDelay(
+                async () =>
+                    ao.message({
+                        process: processId!,
+                        tags: [tag('Action', 'Rugpull')],
+                        signer: ao.createDataItemSigner(wallet),
+                    }),
+                5,
+                3000
+            );
+
+            console.log(' | Sent Rugpull Mesage Id: ', msgId);
+
+            setAoTxResult({
+                status: `200`,
+                statusMsg: `ok`,
+                txId: processId as string,
+                aoResult: true,
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (!connected) return <></>;
@@ -261,13 +355,14 @@ export default function CreateAOTokenCard() {
                     />
                 </details>
                 <Button
-                    onClick={createAOToken}
+                    onClick={() => createAOToken()}
                     disabled={
                         !tokenName || !tokenTicker || !totalSupply || loading
                     }
                 >
                     Create
                 </Button>
+                {aoTxResult.status && <TxResult txResult={{ ...aoTxResult }} />}
             </div>
         </Card>
     );
